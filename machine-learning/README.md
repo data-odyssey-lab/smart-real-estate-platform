@@ -75,9 +75,9 @@ ml/
 
 | Question | Depends On | Status |
 |---|---|---|
-| Is the data scoped to one city or multiple? | Data Engineering | Pending |
-| What property features are available in the dataset? | Data Engineering | Pending |
-| Is historical price data available for trend forecasting? | Data Engineering | Pending |
+| Is the data scoped to one city or multiple? | Data Engineering | Nairobi (v1), multi-city expansion planned |
+| What property features are available in the dataset? | Data Engineering | Price, location, bedrooms, bathrooms, floor size, description |
+| Is historical price data available for trend forecasting? | Data Engineering | Not currently — limits trend forecasting  |
 | Are labeled investment outcome labels available for Stage 2? | Analytics + Data Engineering | Pending |
 | What is the neighborhood-level granularity? estate, neighborhood, is it Nairobi or even counties neighboring Nairobi | Data Engineering | Pending |
 
