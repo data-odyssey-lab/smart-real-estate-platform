@@ -98,6 +98,41 @@ Future expansion:
 * Integration points with Analytics and ML teams
 
 ---
+## ML Team Data Requirements (Confirmed Contracts)
+
+The following requirements have been provided by the ML team and are treated as system inputs / data contracts.
+
+### 1. Confirmed ML Requirements
+
+| Requirement | Status | Notes |
+|------------|--------|------|
+| Geographic scope | Confirmed | Nairobi (V1), future multi-city expansion planned |
+| Required property features | Confirmed | price, location, bedrooms, bathrooms, floor size, description |
+| Historical price data | Confirmed Not Available | Limits time-series forecasting in V1 |
+
+---
+
+### 2. Open ML / Cross-Team Questions
+
+| Question | Depends On | Status |
+|----------|------------|--------|
+| Investment outcome labels for Stage 2 | ML + Analytics + DE | Pending |
+| Neighborhood granularity definition (estate vs neighborhood vs county level) | DE + Analytics | Pending |
+
+---
+
+### 3. Data Engineering Interpretation of ML Requirements
+
+Based on ML inputs, Data Engineering must ensure:
+
+- A standardized property schema supporting all required features
+- Location normalization strategy (estate / neighborhood hierarchy)
+- Future-ready design for historical data ingestion (even if not available in V1)
+- Dataset structure compatible with:
+  - regression models (Stage 1 price prediction)
+  - scoring/classification models (Stage 2 investment analysis)
+
+---
 
 ## Folder Structure
 
@@ -154,7 +189,6 @@ data-engineering/
 
 | Dependency                    | Team           | Status  |
 | ----------------------------- | -------------- | ------- |
-| Final ML feature requirements | ML Team        | Pending |
 | Investment scoring inputs     | Analytics Team | Pending |
 | Reporting metrics definitions | Analytics Team | Pending |
 
