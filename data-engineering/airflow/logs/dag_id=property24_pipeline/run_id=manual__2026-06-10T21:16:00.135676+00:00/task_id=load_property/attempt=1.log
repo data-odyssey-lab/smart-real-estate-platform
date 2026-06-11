@@ -1,0 +1,333 @@
+[2026-06-10T21:16:18.219+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-06-10T21:16:18.240+0000] {taskinstance.py:2603} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: property24_pipeline.load_property manual__2026-06-10T21:16:00.135676+00:00 [queued]>
+[2026-06-10T21:16:18.250+0000] {taskinstance.py:2603} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: property24_pipeline.load_property manual__2026-06-10T21:16:00.135676+00:00 [queued]>
+[2026-06-10T21:16:18.250+0000] {taskinstance.py:2856} INFO - Starting attempt 1 of 3
+[2026-06-10T21:16:18.268+0000] {taskinstance.py:2879} INFO - Executing <Task(PythonOperator): load_property> on 2026-06-10 21:16:00.135676+00:00
+[2026-06-10T21:16:18.276+0000] {logging_mixin.py:190} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=233) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-06-10T21:16:18.278+0000] {standard_task_runner.py:72} INFO - Started process 234 to run task
+[2026-06-10T21:16:18.276+0000] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'property24_pipeline', 'load_property', 'manual__2026-06-10T21:16:00.135676+00:00', '--job-id', '16', '--raw', '--subdir', 'DAGS_FOLDER/dag.py', '--cfg-path', '/tmp/tmp3xj54f4k']
+[2026-06-10T21:16:18.279+0000] {standard_task_runner.py:105} INFO - Job 16: Subtask load_property
+[2026-06-10T21:16:18.330+0000] {task_command.py:467} INFO - Running <TaskInstance: property24_pipeline.load_property manual__2026-06-10T21:16:00.135676+00:00 [running]> on host e80356554076
+[2026-06-10T21:16:18.441+0000] {taskinstance.py:3122} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='warren' AIRFLOW_CTX_DAG_ID='property24_pipeline' AIRFLOW_CTX_TASK_ID='load_property' AIRFLOW_CTX_EXECUTION_DATE='2026-06-10T21:16:00.135676+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-06-10T21:16:00.135676+00:00'
+[2026-06-10T21:16:18.442+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2026-06-10T21:16:18.477+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.481+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.485+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.490+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.494+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.499+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.503+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.507+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.512+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.517+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.521+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.526+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.530+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.535+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.539+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.543+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.548+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.552+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.556+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.560+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.565+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.569+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.574+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.578+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.583+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.588+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.594+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.599+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.603+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.609+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.613+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.618+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.623+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.628+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.632+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.636+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.640+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.645+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.649+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.654+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.659+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.664+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.670+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.676+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.683+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.690+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.696+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.703+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.710+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.717+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.724+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.731+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.738+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.745+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.752+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.759+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.767+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.774+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.780+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.788+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.793+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.799+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.805+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.811+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.818+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.824+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.831+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.838+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.845+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.851+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.857+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.863+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.870+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.888+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.893+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.898+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.904+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.909+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.913+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.918+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.924+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.929+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.934+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.938+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.943+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.948+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.954+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.964+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.970+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.975+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.979+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.984+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.988+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.993+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:18.997+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:19.002+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:19.007+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:19.012+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:19.017+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:19.023+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:19.028+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:19.034+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:19.039+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:19.045+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:19.051+0000] {logging_mixin.py:190} INFO - Error inserting property listing: relation "property_listings" does not exist
+LINE 2: INSERT INTO property_listings (
+                    ^
+[2026-06-10T21:16:19.052+0000] {python.py:240} INFO - Done. Returned value was: None
+[2026-06-10T21:16:19.068+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2026-06-10T21:16:19.068+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=property24_pipeline, task_id=load_property, run_id=manual__2026-06-10T21:16:00.135676+00:00, execution_date=20260610T211600, start_date=20260610T211618, end_date=20260610T211619
+[2026-06-10T21:16:19.096+0000] {local_task_job_runner.py:261} INFO - Task exited with return code 0
+[2026-06-10T21:16:19.119+0000] {taskinstance.py:3891} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-06-10T21:16:19.122+0000] {local_task_job_runner.py:240} INFO - ::endgroup::
