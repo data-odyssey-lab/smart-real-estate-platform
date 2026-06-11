@@ -1,1 +1,22 @@
 .venv/
+
+# Environment variables (credentials)
+.env
+*.env
+
+# Scraped data files
+*.csv
+*.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Airflow
+airflow/logs/
+airflow/airflow.db
+airflow/airflow.cfg
+
+# OS
+.DS_Store
