@@ -3,20 +3,22 @@ from database.connection import get_db_connection
 INSERT_QUERY = """
 INSERT INTO property_listings (
     title,
+    price_raw,
     price,
     location,
     address,
     bedrooms,
     bathrooms,
+    floor_size_raw,
     floor_size,
     excerpt,
     link
 )
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-ON CONFLICT (link) DO NOTHING;
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+ON CONFLICT (link) DO NOTHING; -- Ignore duplicates based on unique link constraint
 """
 
-def insert_property_listing(listing):
+def insert_many_listings(listings):
     conn = None
     cur = None
 
@@ -24,27 +26,31 @@ def insert_property_listing(listing):
         conn = get_db_connection()
         cur = conn.cursor()
 
-        cur.execute(
-            INSERT_QUERY, 
+        values = [
             (
-                listing['title'],
-                listing['price'],
-                listing['location'],
-                listing['address'],
-                listing['bedrooms'],
-                listing['bathrooms'],
-                listing['floor_size'],
-                listing['excerpt'],
-                listing['link']
-        )
-    )
+                i['title'],
+                i['price_raw'],
+                i['price'],
+                i['location'],
+                i['address'],
+                i['bedrooms'],
+                i['bathrooms'],
+                i['floor_size_raw'],
+                i['floor_size'],
+                i['excerpt'],
+                i['link'],
+            )
+            for i in listings
+        ]
+        cur.executemany(INSERT_QUERY, values)
         conn.commit()
+        print(f"Successfully inserted {len(values)} property listings.")
 
-        print("Property listing inserted successfully.")
     except Exception as e:
-        print(f"Error inserting property listing: {e}")
-    finally:
-        if cur:
-            cur.close()
         if conn:
-            conn.close()
+            conn.rollback()
+        raise
+
+    finally:
+        if cur: cur.close()
+        if conn: conn.close()
