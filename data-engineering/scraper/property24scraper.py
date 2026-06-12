@@ -16,7 +16,7 @@ def get_page(url):
 def safe_get_text(element):
     return element.text.strip() if element else 'N/A'
 
-def scrape_property24(pages=5):
+def scrape_property24(pages=50):
     all_listings = []
 
     for page_number in range(1, pages + 1):
