@@ -8,6 +8,7 @@ from airflow.operators.python import PythonOperator
 from scraper.property24scraper import scrape_property24
 from database.transform import clean_listings
 from database.insert_data import insert_many_listings
+from database.export_data import export_to_csv
 # Default DAG arguments
 default_args = {
     "owner": "warren",
@@ -55,6 +56,11 @@ def load_task(ti):
 
     insert_many_listings(listings)
 
+# export task
+def export_task(ti):
+    export_to_csv()
+
+
 # DAG defination
 with DAG(
     dag_id="property24_pipeline",
@@ -80,8 +86,12 @@ with DAG(
         task_id="load_property",
         python_callable=load_task,
     )
+    export_property = PythonOperator(
+        task_id = "export_property",
+        python_callable=export_task,
+    )
 
     # pipeline order
-    scrape_property >> transform_property >> load_property
+    scrape_property >> transform_property >> load_property >> export_property
     
     
