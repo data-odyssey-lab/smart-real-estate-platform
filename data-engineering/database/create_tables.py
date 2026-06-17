@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS property_listings (
 
     -- Location fields
     location TEXT,
+    constituency TEXT,
     address TEXT,
 
     -- Other fields
