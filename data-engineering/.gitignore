@@ -21,3 +21,5 @@ airflow/airflow.cfg
 # OS
 .DS_Store
 .env.docker
+
+airflow/dump.sql
