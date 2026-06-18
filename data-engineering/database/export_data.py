@@ -9,11 +9,11 @@ load_dotenv(dotenv_path=Path(__file__).resolve().parent.parent / ".env")
 
 def export_to_csv():
     conn = psycopg2.connect(
-        dbname=os.getenv("DB_NAME"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        host=os.getenv("DB_HOST"),
-        port=os.getenv("DB_PORT")
+        dbname=os.getenv("SUPABASE_DB"),
+        user=os.getenv("SUPABASE_USER"),
+        password=os.getenv("SUPABASE_PASSWORD"),
+        host=os.getenv("SUPABASE_HOST"),
+        port=os.getenv("SUPABASE_PORT")
     )
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM property_listings")
