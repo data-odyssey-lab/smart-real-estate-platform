@@ -9,11 +9,11 @@ load_dotenv(dotenv_path=Path(__file__).resolve().parent.parent / ".env")
 def get_db_connection():
     try:
         connection = psycopg2.connect(
-            database=os.getenv("DB_NAME"),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASSWORD"),
-            host=os.getenv("DB_HOST"),
-            port=os.getenv("DB_PORT")
+            database=os.getenv("SUPABASE_DB"),
+            user=os.getenv("SUPABASE_USER"),
+            password=os.getenv("SUPABASE_PASSWORD"),
+            host=os.getenv("SUPABASE_HOST"),
+            port=os.getenv("SUPABASE_PORT")
         )
         return connection
     except Exception as e:
