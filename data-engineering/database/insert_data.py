@@ -5,6 +5,7 @@ INSERT INTO property_listings (
     title,
     price_raw,
     price,
+    price_flag,
     location,
     constituency,
     address,
@@ -12,10 +13,11 @@ INSERT INTO property_listings (
     bathrooms,
     floor_size_raw,
     floor_size,
+    floor_size_flag,
     excerpt,
     link
 )
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )
 ON CONFLICT (link) DO NOTHING; -- Ignore duplicates based on unique link constraint
 """
 
@@ -32,6 +34,7 @@ def insert_many_listings(listings):
                 i['title'],
                 i['price_raw'],
                 i['price'],
+                i['price_flag'],
                 i['location'],
                 i['constituency'],
                 i['address'],
@@ -39,6 +42,7 @@ def insert_many_listings(listings):
                 i['bathrooms'],
                 i['floor_size_raw'],
                 i['floor_size'],
+                i['floor_size_flag'],
                 i['excerpt'],
                 i['link'],
             )
