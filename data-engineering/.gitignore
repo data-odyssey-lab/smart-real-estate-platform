@@ -22,4 +22,6 @@ airflow/airflow.cfg
 .DS_Store
 .env.docker
 
+# other
 airflow/dump.sql
+notebooks/
