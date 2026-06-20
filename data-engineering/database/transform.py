@@ -37,7 +37,7 @@ def clean_listing(listing):
     return {
         'title': listing.get('title'),
         'price_raw': listing.get('price'),
-        'price': clean_price(listing.get('price')),
+        'price': price,
         'price_flag': 'outlier' if price is None and listing.get('price') else None,
         'location': listing.get('location'),
         'constituency': get_constituency(listing.get('location')),
