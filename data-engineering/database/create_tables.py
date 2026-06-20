@@ -15,6 +15,10 @@ CREATE TABLE IF NOT EXISTS property_listings (
     bathrooms SMALLINT,
     floor_size NUMERIC,
 
+    -- flags
+    price_flag TEXT,
+    floor_size_flag TEXT,
+    
     -- Location fields
     location TEXT,
     constituency TEXT,
