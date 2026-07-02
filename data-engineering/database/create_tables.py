@@ -3,23 +3,16 @@ from connection import get_db_connection
 CREATE_TABLE_QUERY = """
 CREATE TABLE IF NOT EXISTS property_listings (
     id SERIAL PRIMARY KEY,
-    
-    -- Raw scraped fields(for tracability)
+    source VARCHAR(20) NOT NULL
     title TEXT,
     price_raw TEXT,
     floor_size_raw TEXT,
-
-    -- cleaned numeric fields(for ML and Analytics)
     price NUMERIC,
     bedrooms SMALLINT,
     bathrooms SMALLINT,
     floor_size NUMERIC,
-
-    -- flags
     price_flag TEXT,
     floor_size_flag TEXT,
-    
-    -- Location fields
     location TEXT,
     constituency TEXT,
     address TEXT,

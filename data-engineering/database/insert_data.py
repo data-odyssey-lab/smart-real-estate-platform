@@ -3,6 +3,7 @@ from database.connection import get_db_connection
 INSERT_QUERY = """
 INSERT INTO property_listings (
     title,
+    source,
     price_raw,
     price,
     price_flag,
@@ -17,7 +18,7 @@ INSERT INTO property_listings (
     excerpt,
     link
 )
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )
 ON CONFLICT (link) DO NOTHING; -- Ignore duplicates based on unique link constraint
 """
 
@@ -32,6 +33,7 @@ def insert_many_listings(listings):
         values = [
             (
                 i['title'],
+                i['source'],
                 i['price_raw'],
                 i['price'],
                 i['price_flag'],

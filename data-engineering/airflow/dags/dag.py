@@ -6,6 +6,7 @@ from airflow.operators.python import PythonOperator
 
 # import your project functions
 from scraper.property24scraper import scrape_property24
+from scraper.buyrentkenya import scrape_buyrentkenya
 from database.transform import clean_listings
 from database.insert_data import insert_many_listings
 from database.export_data import export_to_csv
@@ -17,21 +18,50 @@ default_args = {
     "retry_delay": timedelta(minutes=2),
 }
 
+RAW_PATH_P24 = "/tmp/listings_raw_property24.json"
+RAW_PATH_BRK = "/tmp/listings_raw_buyrentkenya.json"
 RAW_PATH = "/tmp/listings_raw.json"
 CLEANED_PATH = "/tmp/listings_cleaned.json"
 
-# Scraping task
-def scrape_task(ti):
+# Scrape property24 task
+def scrape_property24_task(ti):
     listings = scrape_property24()
 
     if not listings:
         raise ValueError("No listings scraped from Property24")
     
-    with open(RAW_PATH, "w") as f:
+    with open(RAW_PATH_P24, "w") as f:
         json.dump(listings, f)
     
     # return instead of xcom push
-    print(f"Scraped {len(listings)} listings and saved to {RAW_PATH}")
+    print(f"Scraped {len(listings)} listings from Property24 and saved to {RAW_PATH_P24}")
+
+# Scrape buyrentkenya task
+def scrape_buyrentkenya_task(ti):
+    listings = scrape_buyrentkenya()
+
+    if not listings:
+        raise ValueError("No listings scraped from BuyRentKenya")
+
+    with open(RAW_PATH_BRK, "w") as f:
+        json.dump(listings, f)
+
+    print(f"Scraped {len(listings)} listings from BuyRentKenya and saved to {RAW_PATH_BRK}")
+
+# merge task
+def merge_task(ti):
+    with open(RAW_PATH_P24) as f:
+        p24_listings = json.load(f)
+
+    with open(RAW_PATH_BRK) as f:
+        brk_listings = json.load(f)
+
+    all_listings = p24_listings + brk_listings
+
+    with open(RAW_PATH, "w") as f:
+        json.dump(all_listings, f)
+
+    print(f"Merged {len(p24_listings)} Property24 listings and {len(brk_listings)} BuyRentKenya listings into {len(all_listings)} total listings. Saved to {RAW_PATH}")
 
 # Transform task
 def transform_task(ti):
@@ -63,35 +93,45 @@ def export_task(ti):
 
 # DAG defination
 with DAG(
-    dag_id="property24_pipeline",
+    dag_id="smart_real_estate_pipeline",
     default_args=default_args,
-    description="Scrape Property24, transform, and load into PostgreSQL",
+    description="Scrape Property24 and BuyRentKenya, transform, and load into PostgreSQL",
     schedule="@daily",
     start_date=datetime(2026, 1, 1),
     catchup=False,
     tags=["real_estate", "scraping", "postgres"],
 ) as dag:
 
-    scrape_property = PythonOperator(
-        task_id="scrape_property",
-        python_callable=scrape_task,
+    scrape_property24_op = PythonOperator(
+        task_id="scrape_property24",
+        python_callable=scrape_property24_task,
     )
 
-    transform_property = PythonOperator(
-        task_id="transform_property",
+    scrape_buyrentkenya_op = PythonOperator(
+        task_id="scrape_buyrentkenya",
+        python_callable=scrape_buyrentkenya_task,
+    )
+
+    merge_listings_op = PythonOperator(
+        task_id="merge_listings",
+        python_callable=merge_task,
+    )
+
+    transform_listings_op = PythonOperator(
+        task_id="transform_listings",
         python_callable=transform_task,
     )
 
-    load_property = PythonOperator(
-        task_id="load_property",
+    load_listings_op = PythonOperator(
+        task_id="load_listings",
         python_callable=load_task,
     )
-    export_property = PythonOperator(
-        task_id = "export_property",
+    export_listings_op = PythonOperator(
+        task_id = "export_listings",
         python_callable=export_task,
     )
 
     # pipeline order
-    scrape_property >> transform_property >> load_property >> export_property
+    [scrape_property24_op, scrape_buyrentkenya_op] >> merge_listings_op >> transform_listings_op >> load_listings_op >> export_listings_op
     
     
