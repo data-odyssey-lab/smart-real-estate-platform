@@ -33,7 +33,7 @@ def get_page(url):
 def safe_get_text(element):
     return element.text.strip() if element else 'N/A'
 
-def scrape_property24(pages=50):
+def scrape_property24(pages=3):
     all_listings = []
 
     for region_name, region_code in regions.items():
