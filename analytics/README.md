@@ -1,9 +1,5 @@
 # Nairobi Real Estate Analytics Platform
 
-**Smart Real Estate Analytics from Property24 Kenya Data**
-
-![Status](https://img.shields.io/badge/Status-Active-brightgreen) ![Listings](https://img.shields.io/badge/Listings-665-blue) ![Coverage](https://img.shields.io/badge/Coverage-Westlands%20%7C%20Langata-orange) ![Updated](https://img.shields.io/badge/Last%20Updated-June%202026-lightgray)
-
 ##  Executive Summary
 
 This repository contains a comprehensive real estate analytics platform analyzing the Nairobi property market using 665 cleaned listings scraped from Property24 Kenya. The analysis reveals **a two-tier market structure**, identifies **bedroom count as the strongest price predictor**, and provides **actionable insights for buyers and investors**.
