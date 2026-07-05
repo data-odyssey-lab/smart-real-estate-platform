@@ -97,8 +97,9 @@ with DAG(
     default_args=default_args,
     description="Scrape Property24 and BuyRentKenya, transform, and load into PostgreSQL",
     schedule="@daily",
-    start_date=datetime(2026, 1, 1),
+    start_date=datetime(2026, 7, 1),
     catchup=False,
+    max_active_runs=1,
     tags=["real_estate", "scraping", "postgres"],
 ) as dag:
 
