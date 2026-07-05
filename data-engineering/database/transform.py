@@ -3,15 +3,15 @@ from database.location_normalizer import get_constituency
 
 def clean_price(price_str):
     if not price_str or price_str == 'N/A':
-        return None
+        return None, None
     digits = re.sub(r'[^\d.]', '', price_str)
     if not digits:
-        return None
+        return None, 'invalid'
     value = int(digits)
     # clean unrealistic prizes
     if value < 500000:
-        return None
-    return value
+        return None, 'outlier'
+    return value, None
 
 def clean_numeric(value_str):
     if not value_str or value_str == 'N/A':
@@ -33,13 +33,14 @@ def clean_floor_size(value_str):
 
 def clean_listing(listing):
     price = clean_price(listing.get('price'))
+    price, price_flag = clean_price(listing.get('price'))
     floor_size, floor_size_flag = clean_floor_size(listing.get('floor_size'))
     return {
         'title': listing.get('title'),
         'source': listing.get('source'),
         'price_raw': listing.get('price'),
         'price': price,
-        'price_flag': 'outlier' if price is None and listing.get('price') else None,
+        'price_flag': price_flag,
         'location': listing.get('location'),
         'constituency': get_constituency(listing.get('location')),
         'address': listing.get('address'),

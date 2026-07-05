@@ -1,27 +1,31 @@
 # Data Dictionary — Smart Real Estate Analytics Platform
 
 **Team:** Data Engineering
-**Version:** V1
-**Last Updated:** June 2026
-**Database:** PostgreSQL (`real_estate_db`)
+**Version:** V2
+**Last Updated:** July 2026
+**Database:** Supabase PostgreSQL (`real_estate_db`)
 **Geographic Scope:** Nairobi County, Kenya
 
 ---
 
 ## Overview
 
-This document describes all data assets produced and maintained by the Data Engineering team. It is the primary reference for the Analytics and ML teams when consuming data from the platform.
+This document describes all datasets produced and maintained by the Data Engineering team. It is the primary reference for the Analytics and ML teams when consuming data from the platform.
 
 ---
 
 ## Table: `property_listings`
 
-The core table of the platform. Each row represents a single property listing scraped from Property24 Kenya.
+The core table of the platform. Each row represents a single property listing scraped from Property24 Kenya and buyrentkenya.
 
-**Source:** [property24.co.ke](https://www.property24.co.ke)
-**Update Frequency:** Daily (via Airflow DAG `property24_pipeline`)
-**Primary Key:** `id`
-**Deduplication Key:** `link` (unique constraint)
+### Sources
+
+| Property | Property24 | BuyRentKenya |
+|---|---|---|
+| URL | [property24.co.ke](https://www.property24.co.ke) | [buyrentkenya.com](https://www.buyrentkenya.com) |
+| Update Frequency | Daily via `smart_real_estate_pipeline` | Daily via `smart_real_estate_pipeline` |
+| Primary Key | `id` | `id` |
+| Deduplication Key | `link` (unique constraint) | `link` (unique constraint) |
 
 ---
 
@@ -30,15 +34,19 @@ The core table of the platform. Each row represents a single property listing sc
 | Column | Data Type | Nullable | Description | Example |
 |---|---|---|---|---|
 | `id` | SERIAL | No | Auto-incrementing unique identifier for each listing | `1`, `2`, `3` |
+| `source` | VARCHAR (20) NOT NULL | NO | Property listing source | `property24` |
 | `title` | TEXT | Yes | Property listing title as scraped | `"3 Bedroom Apartment / Flat"` |
 | `price_raw` | TEXT | Yes | Original price string as scraped, preserved for traceability | `"KSh 15,000,000"` |
 | `price` | NUMERIC | Yes | Cleaned numeric price in Kenyan Shillings (KES) | `15000000` |
 | `location` | TEXT | Yes | Neighborhood or area name | `"Westlands"`, `"Kilimani"` |
 | `address` | TEXT | Yes | Full address string as scraped | `"Westlands, Westlands, Nairobi"` |
+| `constituency` | TEXT | Yes | Contetuency location for each listing | `Langata`, `Kasarani` |
 | `bedrooms` | SMALLINT | Yes | Number of bedrooms | `1`, `2`, `3`, `4` |
 | `bathrooms` | SMALLINT | Yes | Number of bathrooms | `1`, `2`, `3` |
 | `floor_size_raw` | TEXT | Yes | Original floor size string as scraped, preserved for traceability | `"120 m²"` |
 | `floor_size` | NUMERIC | Yes | Cleaned numeric floor size in square metres (m²) | `120.0` |
+| `price_flag` | TEXT | Yes | Flags outlier prices below 500,000 and invalid | `outlier`, `invalid` |
+| `floor_size_flag` | TEXT | Yes | Flags outlier floor_size  below 10m^2 and above 2000m^2 and invalid | `outlier`, `invalid` |
 | `excerpt` | TEXT | Yes | Short property description from the listing | `"Newly built apartment in the heart of..."` |
 | `link` | TEXT | No | Full URL to the original listing page. Used as deduplication key | `"https://www.property24.co.ke/..."` |
 | `scraped_at` | TIMESTAMP | No | Timestamp of when the record was inserted. Defaults to current time | `2026-06-11 10:12:09` |
@@ -54,13 +62,13 @@ The raw string (`price_raw`) is kept for traceability — so you can always audi
 Same pattern as price. Use `floor_size` for analysis. `floor_size_raw` is the audit trail.
 
 **`location` field**
-Currently stores the neighborhood name as scraped (e.g. `"Westlands"`, `"Kilimani"`). Neighborhood granularity normalization (estate → neighborhood → constituency hierarchy) is a pending cross-team decision. Do not use this field for constituency-level aggregations until normalization is confirmed.
+Currently stores the neighborhood name as scraped (e.g. `"Westlands"`, `"Kilimani"`). Neighborhood granularity normalization is on constituency level (estate → neighborhood → constituency hierarchy).
 
 **`bedrooms` and `bathrooms`**
 Stored as SMALLINT. Values are cleaned from strings (e.g. `"3"` → `3`). NULL means the value was missing or unparseable from the listing.
 
 **`scraped_at`**
-This is the ingestion timestamp, not the listing publication date. Property24 does not expose listing dates in the scraped fields in V1.
+This is the ingestion timestamp, not the listing publication date. both sites does not expose listing dates in the scraped fields.
 
 ---
 
@@ -69,10 +77,10 @@ This is the ingestion timestamp, not the listing publication date. Property24 do
 | Metric | Target | Notes |
 |---|---|---|
 | Duplicate listings | 0% | Enforced via UNIQUE constraint on `link` |
-| Price validity | > 90% non-null | Some listings don't display price |
-| Bedrooms validity | > 85% non-null | Some listings omit bedroom count |
-| Floor size validity | > 80% non-null | Floor size is frequently missing |
-| Location validity | > 99% non-null | Always present in scraped data |
+| Price validity | > 99% non-null | Some listings don't display price |
+| Bedrooms validity | > 69% non-null | Some listings omit bedroom count |
+| Floor size validity | > 31% non-null | Floor size is frequently missing for property24 listings and not present for buyrentkenya listings |
+| Location validity | > 100% non-null | Always present in scraped data |
 
 ---
 
@@ -80,9 +88,8 @@ This is the ingestion timestamp, not the listing publication date. Property24 do
 
 | Limitation | Impact | Planned Resolution |
 |---|---|---|
-| No historical price data | Cannot do time-series forecasting or trend analysis | Future V2 — archive daily snapshots |
-| Single data source (Property24 only) | Limited coverage of Nairobi listings | BuyRentKenya scraper in progress |
-| Location not normalized | Cannot reliably aggregate at contituency level | Pending cross-team decision on granularity |
+| No historical price data | Cannot do time-series forecasting or trend analysis since scarped data is barely one month old | Future V2 — archive daily snapshots |
+| Location not fully normalized for listings outside Nairobi | Cannot fully  aggregate at contituency level | Pending |
 | No listing publication date | Cannot determine how fresh a listing is | Under investigation |
 | No property type classification | Cannot filter by apartment vs house vs land | To be derived from `title` field in feature engineering |
 
@@ -102,11 +109,11 @@ property_listings_YYYY-MM-DD.csv
 A read-only database user is available for direct PostgreSQL access via DBeaver or pandas.
 
 ```
-Host:     <to be shared via secure channel>
-Port:     5433
-Database: real_estate_db
-User:     analyst
-Password: <to be shared via secure channel>
+Host:     <shared via secure channel>
+Port:     5432
+Database: postgres
+User:     analyst/ML/DE
+Password: <shared via secure channel>
 ```
 
 Permissions: `SELECT` only on all tables in the `public` schema.
@@ -116,7 +123,7 @@ Permissions: `SELECT` only on all tables in the `public` schema.
 import pandas as pd
 from sqlalchemy import create_engine
 
-engine = create_engine("postgresql://analyst:<password>@<host>:5432/real_estate_db")
+engine = create_engine("postgresql://analyst:<password>@<host>:5432/postgres")
 df = pd.read_sql("SELECT * FROM property_listings", engine)
 ```
 
@@ -174,7 +181,7 @@ WHERE price IS NULL;
 
 | Version | Date | Author | Changes |
 |---|---|---|---|
-| V1.0 | June 2026 | Warren Otieno | Initial schema and dictionary — Property24 source |
+| V2 | July 2026 | Warren Otieno | Added BuyRentKenya source, outlier flagging, constituency field, source column |
 
 ---
 
