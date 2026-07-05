@@ -21,21 +21,22 @@ def clean_numeric(value_str):
 
 def clean_floor_size(value_str):
     if not value_str or value_str == 'N/A':
-        return None
+        return None, None
     digits = re.sub(r'[^\d.]', '', value_str)
     if not digits:
-        return None
+        return None, 'invalid'
     value = float(digits)
     # flag unrealistic values as None
     if value < 10 or value > 2000:
-        return None
-    return value
+        return None, 'outlier'
+    return value, None
 
 def clean_listing(listing):
     price = clean_price(listing.get('price'))
-    floor_size = clean_floor_size(listing.get('floor_size'))
+    floor_size, floor_size_flag = clean_floor_size(listing.get('floor_size'))
     return {
         'title': listing.get('title'),
+        'source': listing.get('source'),
         'price_raw': listing.get('price'),
         'price': price,
         'price_flag': 'outlier' if price is None and listing.get('price') else None,
@@ -46,7 +47,7 @@ def clean_listing(listing):
         'bathrooms': clean_numeric(listing.get('bathrooms')),
         'floor_size_raw': listing.get('floor_size'),
         'floor_size': floor_size,
-        'floor_size_flag': 'outlier' if floor_size is None and listing.get('floor_size') else None,
+        'floor_size_flag': floor_size_flag,
         'excerpt': listing.get('excerpt'),
         'link': listing.get('link'),
     }
