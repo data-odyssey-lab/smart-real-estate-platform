@@ -8,6 +8,7 @@
 *.csv
 *.json
 
+
 # Python
 __pycache__/
 *.pyc
@@ -17,6 +18,8 @@ __pycache__/
 airflow/logs/
 airflow/airflow.db
 airflow/airflow.cfg
+# track the exports directory (without the actual CSV files)
+!airflow/exports/.gitkeep
 
 # OS
 .DS_Store
