@@ -32,7 +32,6 @@ def clean_floor_size(value_str):
     return value, None
 
 def clean_listing(listing):
-    price = clean_price(listing.get('price'))
     price, price_flag = clean_price(listing.get('price'))
     floor_size, floor_size_flag = clean_floor_size(listing.get('floor_size'))
     return {
