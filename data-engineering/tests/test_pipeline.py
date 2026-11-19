@@ -1,5 +1,12 @@
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 from scraper.property24scraper import scrape_property24
-from scraper.buyrentkenya import scrape_buyrentkenya
+# from scraper.buyrentkenya import scrape_buyrentkenya
 from database.transform import clean_listings
 from database.insert_data import insert_many_listings
 
@@ -9,17 +16,17 @@ raw_listings = scrape_property24(pages=1)
 print(f"Scraped {len(raw_listings)} listings")
 print("Sample raw:", raw_listings[0])
 
-print("Scraping BuyRentKenya...")
-brk_listings = scrape_buyrentkenya(pages=1)
-print(f"Scraped {len(brk_listings)} listings")
-print("Sample raw:", brk_listings[0])
+# print("Scraping BuyRentKenya...")
+# brk_listings = scrape_buyrentkenya(pages=1)
+# print(f"Scraped {len(brk_listings)} listings")
+# print("Sample raw:", brk_listings[0])
 
-combined_listings = raw_listings + brk_listings
-print(f"Total combined listings: {len(combined_listings)}")
+# combined_listings = raw_listings + brk_listings
+# print(f"Total combined listings: {len(combined_listings)}")
 
 # Step 2 - Transform
 print("\nTransforming...")
-cleaned = clean_listings(combined_listings)
+cleaned = clean_listings(raw_listings)
 print(f"Cleaned {len(cleaned)} listings")
 print("Sample cleaned:", cleaned[0])
 

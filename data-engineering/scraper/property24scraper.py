@@ -60,6 +60,7 @@ def scrape_property24(pages=50):
                         'source': 'property24',
                         'title': safe_get_text(listing.find('span', class_='p24_propertyTitle')),
                         'price': safe_get_text(listing.find('span', class_='p24_price')),
+                        'region': region_name,
                         'location': safe_get_text(listing.find('span', class_='p24_location')),
                         'address': safe_get_text(listing.find('span', class_='p24_address')),
                         'bedrooms': safe_get_text(listing.find('span', title='Bedrooms')),

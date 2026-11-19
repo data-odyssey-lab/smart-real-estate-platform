@@ -6,7 +6,7 @@ from airflow.operators.python import PythonOperator
 
 # import your project functions
 from scraper.property24scraper import scrape_property24
-from scraper.buyrentkenya import scrape_buyrentkenya
+# from scraper.buyrentkenya import scrape_buyrentkenya
 from database.transform import clean_listings
 from database.insert_data import insert_many_listings
 from database.export_data import export_to_csv
@@ -19,7 +19,7 @@ default_args = {
 }
 
 RAW_PATH_P24 = "/tmp/listings_raw_property24.json"
-RAW_PATH_BRK = "/tmp/listings_raw_buyrentkenya.json"
+# RAW_PATH_BRK = "/tmp/listings_raw_buyrentkenya.json"
 RAW_PATH = "/tmp/listings_raw.json"
 CLEANED_PATH = "/tmp/listings_cleaned.json"
 
@@ -37,35 +37,35 @@ def scrape_property24_task(ti):
     print(f"Scraped {len(listings)} listings from Property24 and saved to {RAW_PATH_P24}")
 
 # Scrape buyrentkenya task
-def scrape_buyrentkenya_task(ti):
-    listings = scrape_buyrentkenya()
+# def scrape_buyrentkenya_task(ti):
+#     listings = scrape_buyrentkenya()
 
-    if not listings:
-        raise ValueError("No listings scraped from BuyRentKenya")
+#     if not listings:
+#         raise ValueError("No listings scraped from BuyRentKenya")
 
-    with open(RAW_PATH_BRK, "w") as f:
-        json.dump(listings, f)
+#     with open(RAW_PATH_BRK, "w") as f:
+#         json.dump(listings, f)
 
-    print(f"Scraped {len(listings)} listings from BuyRentKenya and saved to {RAW_PATH_BRK}")
+#     print(f"Scraped {len(listings)} listings from BuyRentKenya and saved to {RAW_PATH_BRK}")
 
 # merge task
-def merge_task(ti):
-    with open(RAW_PATH_P24) as f:
-        p24_listings = json.load(f)
+# def merge_task(ti):
+#     with open(RAW_PATH_P24) as f:
+#         p24_listings = json.load(f)
 
-    with open(RAW_PATH_BRK) as f:
-        brk_listings = json.load(f)
+#     with open(RAW_PATH_BRK) as f:
+#         brk_listings = json.load(f)
 
-    all_listings = p24_listings + brk_listings
+#     all_listings = p24_listings + brk_listings
 
-    with open(RAW_PATH, "w") as f:
-        json.dump(all_listings, f)
+#     with open(RAW_PATH, "w") as f:
+#         json.dump(all_listings, f)
 
-    print(f"Merged {len(p24_listings)} Property24 listings and {len(brk_listings)} BuyRentKenya listings into {len(all_listings)} total listings. Saved to {RAW_PATH}")
+#     print(f"Merged {len(p24_listings)} Property24 listings and {len(brk_listings)} BuyRentKenya listings into {len(all_listings)} total listings. Saved to {RAW_PATH}")
 
 # Transform task
 def transform_task(ti):
-    with open(RAW_PATH) as f:
+    with open(RAW_PATH_P24) as f:
         raw_listings = json.load(f)
     
     cleaned = clean_listings(raw_listings)
@@ -95,7 +95,7 @@ def export_task(ti):
 with DAG(
     dag_id="smart_real_estate_pipeline",
     default_args=default_args,
-    description="Scrape Property24 and BuyRentKenya, transform, and load into PostgreSQL",
+    description="Scrape Property24, transform, and load into PostgreSQL",
     schedule="@daily",
     start_date=datetime(2026, 7, 1),
     catchup=False,
@@ -108,15 +108,15 @@ with DAG(
         python_callable=scrape_property24_task,
     )
 
-    scrape_buyrentkenya_op = PythonOperator(
-        task_id="scrape_buyrentkenya",
-        python_callable=scrape_buyrentkenya_task,
-    )
+    # scrape_buyrentkenya_op = PythonOperator(
+    #     task_id="scrape_buyrentkenya",
+    #     python_callable=scrape_buyrentkenya_task,
+    # )
 
-    merge_listings_op = PythonOperator(
-        task_id="merge_listings",
-        python_callable=merge_task,
-    )
+    # merge_listings_op = PythonOperator(
+    #     task_id="merge_listings",
+    #     python_callable=merge_task,
+    # )
 
     transform_listings_op = PythonOperator(
         task_id="transform_listings",
@@ -133,6 +133,6 @@ with DAG(
     )
 
     # pipeline order
-    [scrape_property24_op, scrape_buyrentkenya_op] >> merge_listings_op >> transform_listings_op >> load_listings_op >> export_listings_op
+    scrape_property24_op>> transform_listings_op >> load_listings_op >> export_listings_op
     
     

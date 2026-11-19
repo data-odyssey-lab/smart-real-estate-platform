@@ -1,29 +1,30 @@
 from connection import get_db_connection
 
-CREATE_TABLE_QUERY = """
-CREATE TABLE IF NOT EXISTS property_listings (
-    id SERIAL PRIMARY KEY,
-    source VARCHAR(20) NOT NULL
-    title TEXT,
-    price_raw TEXT,
-    floor_size_raw TEXT,
-    price NUMERIC,
-    bedrooms SMALLINT,
-    bathrooms SMALLINT,
-    floor_size NUMERIC,
-    price_flag TEXT,
-    floor_size_flag TEXT,
-    location TEXT,
-    constituency TEXT,
-    address TEXT,
-
-    -- Other fields
-    excerpt TEXT,
-    link TEXT UNIQUE,
-
-    -- Metadata
-    scraped_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE_RAW_SCHEMA_QUERY = """
+    CREATE SCHEMA IF NOT EXISTS raw; 
+"""
+CREATE_RAW_LISTINGS_TABLE_QUERY = """
+CREATE TABLE IF NOT EXISTS raw.raw_listings (
+    raw_id      bigserial PRIMARY KEY,
+    title       text,
+    source      text NOT NULL,
+    price_raw      text,
+    location    text,
+    constituency text,
+    address     text,
+    bedrooms    text,
+    bathrooms   text,
+    floor_size_raw  text,
+    excerpt     text,
+    link        text,
+    scrape_date DATE NOT NULL DEFAULT CURRENT_DATE,
+    content_hash TEXT UNIQUE,
+    scraped_at  timestamptz NOT NULL DEFAULT now()
 );
+"""
+CREATE_RAW_INDEX = """
+CREATE INDEX IF NOT EXISTS ix_raw_listings_scrape_date
+ON raw.raw_listings (scrape_date);
 """
 
 def create_tables():
@@ -33,9 +34,11 @@ def create_tables():
     try:
         conn = get_db_connection()
         cur = conn.cursor()
-        cur.execute(CREATE_TABLE_QUERY)
+        cur.execute(CREATE_RAW_SCHEMA_QUERY)
+        cur.execute(CREATE_RAW_LISTINGS_TABLE_QUERY)
+        cur.execute(CREATE_RAW_INDEX)
         conn.commit()
-        print("Tables created successfully.")
+        print("Raw table created successfully.")
     except Exception as e:
         conn.rollback()
         raise

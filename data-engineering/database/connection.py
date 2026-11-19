@@ -13,7 +13,9 @@ def get_db_connection():
             user=os.getenv("SUPABASE_USER"),
             password=os.getenv("SUPABASE_PASSWORD"),
             host=os.getenv("SUPABASE_HOST"),
-            port=os.getenv("SUPABASE_PORT")
+            port=os.getenv("SUPABASE_PORT"),
+            sslmode='require',
+            options="-c statement_timeout=30000"
         )
         return connection
     except Exception as e:

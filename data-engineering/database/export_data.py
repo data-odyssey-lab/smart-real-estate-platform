@@ -16,7 +16,7 @@ def export_to_csv():
         port=os.getenv("SUPABASE_PORT")
     )
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM property_listings")
+    cursor.execute("SELECT * FROM raw.raw_listings;")
     rows = cursor.fetchall()
     columns = [desc[0] for desc in cursor.description]
     cursor.close()
