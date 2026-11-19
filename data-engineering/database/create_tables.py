@@ -1,7 +1,7 @@
 from connection import get_db_connection
 
 CREATE_RAW_SCHEMA_QUERY = """
-    CREATE SCHEMA IF NOT EXISTS raw; 
+    CREATE SCHEMA IF NOT EXISTS raw;
 """
 CREATE_RAW_LISTINGS_TABLE_QUERY = """
 CREATE TABLE IF NOT EXISTS raw.raw_listings (
